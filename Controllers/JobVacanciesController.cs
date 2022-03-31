@@ -2,24 +2,23 @@ namespace DevJobs.API.Controllers
 {
     using DevJobs.API.Entities;
     using DevJobs.API.Models;
-    using DevJobs.API.Persistence;
+    using DevJobs.API.Persistence.Repositories;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
 
     [Route("api/job-vacancies")]
     [ApiController]
     public class JobVacanciesController : ControllerBase
     {
-        private readonly DebJobsContext _devJobsContext;       
-        public JobVacanciesController(DebJobsContext devJobsContext)
+        private readonly IJobVacancyRepository _repository;
+        public JobVacanciesController(IJobVacancyRepository repository)
         {
-            _devJobsContext = devJobsContext;
+            _repository = repository;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var vacancies = _devJobsContext.JobVacancies.Include(ja => ja.Applications);
+            var vacancies = _repository.GetAll();
 
             return Ok(vacancies);
         }
@@ -27,9 +26,7 @@ namespace DevJobs.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var vacancie = _devJobsContext.JobVacancies
-                .Include(e => e.Applications)
-                .SingleOrDefault(j => j.Id == id);
+            var vacancie = _repository.GetById(id);
             
             if (vacancie == null)
             {
@@ -50,8 +47,7 @@ namespace DevJobs.API.Controllers
                 model.SalaryRange
             );
 
-            _devJobsContext.JobVacancies.Add(vacancie);
-            _devJobsContext.SaveChanges();
+            _repository.Add(vacancie);
 
             return CreatedAtAction("GetById", new { id = vacancie.Id}, vacancie);
         }
@@ -59,14 +55,15 @@ namespace DevJobs.API.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, UpdateJobVacancyInputModel model)
         {
-            var vacancie = _devJobsContext.JobVacancies.SingleOrDefault(j => j.Id == id);
+            var vacancie = _repository.GetById(id);
             if (vacancie == null)
             {
                 return NotFound();
             }
 
             vacancie.Update(model.Title, model.Description);
-            _devJobsContext.SaveChanges();
+            
+            _repository.Update(vacancie);
             
             return NoContent();
         }
