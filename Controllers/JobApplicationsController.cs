@@ -31,7 +31,8 @@ namespace DevJobs.API.Controllers
                 model.IdJobVacancy
             );
 
-            vacancie.Applications.Add(application);
+            _devJobsContext.JobApplication.Add(application);
+            _devJobsContext.SaveChanges();
             
             return NoContent();
         }    
