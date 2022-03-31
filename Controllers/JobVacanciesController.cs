@@ -36,6 +36,22 @@ namespace DevJobs.API.Controllers
             return Ok(vacancie);
         }
 
+        /// <summary>
+        /// Cadastrar uma vaga de emprego.
+        /// </summary> 
+        /// <remarks>
+        /// {
+        ///     "title": "Dev .NET PL",
+        ///     "description": "Descrição vaga Dev .NET PL",
+        ///     "company": "string",
+        ///     "isRemote": true,
+        ///     "salaryRange": "5000-8000"
+        /// }
+        /// </remarks>
+        /// <param name="model">Dados da vaga.</param>
+        /// <returns>Objeto recem criado</returns>
+        /// <response code="201">Sucesso.</response>
+        /// <response code="400">Dados Inválidos</response>
         [HttpPost]
         public IActionResult Post(AddJobVacancyInputModel model)
         {

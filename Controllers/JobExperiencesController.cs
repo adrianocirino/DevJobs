@@ -5,18 +5,18 @@ namespace DevJobs.API.Controllers
     using DevJobs.API.Persistence.Repositories;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/job-vacancies/{id}/applications")]
+    [Route("api/job-vacancies/{id}/experiences")]
     [ApiController]
-    public class JobApplicationsController : ControllerBase
+    public class JobExperiencesController : ControllerBase
     {
         private readonly IJobVacancyRepository _repository;
-        public JobApplicationsController(IJobVacancyRepository repository)
+        public JobExperiencesController(IJobVacancyRepository repository)
         {
             _repository = repository;
         }
         
         [HttpPost]
-        public IActionResult Post(int id, AddJobApplicationInputModel model)
+        public IActionResult Post(int id, AddJobExperienceInputModel model)
         {
             
             var vacancie = _repository.GetById(id);
@@ -25,13 +25,14 @@ namespace DevJobs.API.Controllers
                 return NotFound();
             }
             
-            var application = new JobApplication(
-                model.ApplicantName,
-                model.ApplicantEmail,
+            var experience = new JobExperience(
+                model.CompanyName,
+                model.Range,
+                model.Description,
                 id
             );
 
-            _repository.AddApplication(application);
+            _repository.AddExperience(experience);
             
             return NoContent();
         }    

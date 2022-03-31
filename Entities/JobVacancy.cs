@@ -10,6 +10,7 @@ namespace DevJobs.API.Entities
         public string SalaryRange { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public List<JobApplication> Applications { get; private set; }
+        public List<JobExperience> Experiences { get; private set; }
         
         public JobVacancy(string title, string description, string company, bool isRemote, string salaryRange)
         {
@@ -21,6 +22,7 @@ namespace DevJobs.API.Entities
 
             CreatedAt = DateTime.Now;
             Applications = new List<JobApplication>();
+            Experiences = new List<JobExperience>();
         }
 
         public void Update(string title, string description)

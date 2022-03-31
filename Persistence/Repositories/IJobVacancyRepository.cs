@@ -9,5 +9,6 @@ namespace DevJobs.API.Persistence.Repositories
          void Add(JobVacancy jobVacancy);
          void Update(JobVacancy jobVacancy);
          void AddApplication(JobApplication jobApplication);
+         void AddExperience(JobExperience jobExperience);
     }
 }

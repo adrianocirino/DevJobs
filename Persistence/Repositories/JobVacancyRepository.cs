@@ -18,7 +18,10 @@ namespace DevJobs.API.Persistence.Repositories
 
         public JobVacancy GetById(int id)
         {
-            return _context.JobVacancies.Include(ja => ja.Applications).SingleOrDefault(jv => jv.Id == id);
+            return _context.JobVacancies
+                .Include(ja => ja.Applications)
+                .Include(je => je.Experiences)
+                .SingleOrDefault(jv => jv.Id == id);
         }
 
         public void Add(JobVacancy jobVacancy)
@@ -36,6 +39,11 @@ namespace DevJobs.API.Persistence.Repositories
         {
             _context.JobApplication.Add(jobApplication);
             _context.SaveChanges();
-        }        
+        }
+        public void AddExperience(JobExperience jobExperience)
+        {
+            _context.JobExperience.Add(jobExperience);
+            _context.SaveChanges();
+        }     
     }
 }

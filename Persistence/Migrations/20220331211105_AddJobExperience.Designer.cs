@@ -4,6 +4,7 @@ using DevJobs.API.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevJobs.API.Persistence.Migrations
 {
     [DbContext(typeof(DebJobsContext))]
-    partial class DebJobsContextModelSnapshot : ModelSnapshot
+    [Migration("20220331211105_AddJobExperience")]
+    partial class AddJobExperience
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

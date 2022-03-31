@@ -9,22 +9,31 @@ namespace DevJobs.API.Persistence
 
         public DbSet<JobVacancy> JobVacancies { get; set; }
         public DbSet<JobApplication> JobApplication { get; set; }
-       
-       protected override void OnModelCreating(ModelBuilder builder)
-       {
-            builder.Entity<JobVacancy>(e => {
-               //e.ToTable("tb_job_vacancies");
-               e.HasKey(jb => jb.Id);
+        public DbSet<JobExperience> JobExperience { get; set; }                       
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+                builder.Entity<JobVacancy>(e => {
+                //e.ToTable("tb_job_vacancies");
+                e.HasKey(jv => jv.Id);
 
-               e.HasMany(jb => jb.Applications)
-                    .WithOne()
-                    .HasForeignKey(ja => ja.IdJobVacancy)
-                    .OnDelete(DeleteBehavior.Restrict);
-            });
+                e.HasMany(jv => jv.Applications)
+                        .WithOne()
+                        .HasForeignKey(ja => ja.IdJobVacancy)
+                        .OnDelete(DeleteBehavior.Restrict);
+                    
+                    e.HasMany(jv => jv.Experiences)
+                        .WithOne()
+                        .HasForeignKey(je => je.IdJobVacancy)
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
 
-            builder.Entity<JobApplication>(e => {
-                e.HasKey(ja => ja.Id);	
-            });
-       }
+                builder.Entity<JobApplication>(e => {
+                    e.HasKey(ja => ja.Id);	
+                });
+
+                builder.Entity<JobExperience>(e => {
+                    e.HasKey(je => je.Id);
+                });
+        }
     }
 }
