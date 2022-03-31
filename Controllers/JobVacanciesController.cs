@@ -19,8 +19,8 @@ namespace DevJobs.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var vacancies = _devJobsContext.JobVacancies;
-              
+            var vacancies = _devJobsContext.JobVacancies.Include(ja => ja.Applications);
+
             return Ok(vacancies);
         }
 

@@ -28,7 +28,7 @@ namespace DevJobs.API.Controllers
             var application = new JobApplication(
                 model.ApplicantName,
                 model.ApplicantEmail,
-                model.IdJobVacancy
+                id
             );
 
             _devJobsContext.JobApplication.Add(application);

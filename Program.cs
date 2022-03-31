@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DevJobsCs");
 
 builder.Services.AddDbContext<DebJobsContext>(options => {
-    options.UseInMemoryDatabase("DevJobs");
+    options.UseSqlServer(connectionString);
 });
 
 builder.Services.AddControllers();
