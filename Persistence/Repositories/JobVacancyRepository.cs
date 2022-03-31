@@ -13,7 +13,7 @@ namespace DevJobs.API.Persistence.Repositories
 
         public List<JobVacancy> GetAll()
         {
-            return _context.JobVacancies.Include(ja => ja.Applications).ToList();
+            return _context.JobVacancies.ToList();
         }
 
         public JobVacancy GetById(int id)
